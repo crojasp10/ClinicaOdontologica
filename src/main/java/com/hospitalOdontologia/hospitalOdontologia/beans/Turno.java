@@ -23,10 +23,13 @@ public class Turno {
 
     @Column(name="fecha")
     private String fecha;
+
     @ManyToOne( cascade = CascadeType.ALL,  fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "paciente_id",referencedColumnName = "id")
     private Paciente paciente;
 
-
+    @ManyToOne( cascade = CascadeType.ALL,  fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "odontologo_id",referencedColumnName = "id")
+    private Odontologo odontologo;
 
 }

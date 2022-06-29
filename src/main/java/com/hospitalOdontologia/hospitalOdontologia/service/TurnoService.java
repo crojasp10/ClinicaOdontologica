@@ -1,7 +1,9 @@
 package com.hospitalOdontologia.hospitalOdontologia.service;
 
+import com.hospitalOdontologia.hospitalOdontologia.beans.Odontologo;
 import com.hospitalOdontologia.hospitalOdontologia.beans.Paciente;
 import com.hospitalOdontologia.hospitalOdontologia.beans.Turno;
+import com.hospitalOdontologia.hospitalOdontologia.repository.OdontologoRepository;
 import com.hospitalOdontologia.hospitalOdontologia.repository.PacienteRepository;
 import com.hospitalOdontologia.hospitalOdontologia.repository.TurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class TurnoService  {
     private PacienteRepository pacienteRepository;
     @Autowired
     private TurnoRepository turnoRepository;
+    @Autowired
+    private OdontologoRepository odontologoRepository;
 
 
     public StringBuilder insertarturno (Turno turno) {
@@ -25,14 +29,21 @@ public class TurnoService  {
         System.out.println(turno);
         StringBuilder result = new StringBuilder();
 
-        if (pacienteRepository.findById(turno.getPaciente().getId()) != null) {
+        if (pacienteRepository.findById(turno.getPaciente().getId()) != null &&
+                odontologoRepository.findById((turno.getOdontologo().getId())) != null) {
             Paciente paciente = new Paciente();
              paciente = pacienteRepository.findById(turno.getPaciente().getId());
-            System.out.println("Guarda el turno 1 con id: " + turno.getPaciente().getId() );
+
+            Odontologo odontologo = new Odontologo();
+            odontologo = odontologoRepository.findById(turno.getOdontologo().getId());
+
+            System.out.println("Guarda el turno 1 con id: " + turno.getPaciente().getId() + "y odontologo id:"+ turno.getOdontologo().getId() );
+
             //Turno turno1 = new Turno();
             turno.setFecha(turno.getFecha());
             turno.setId(turno.getId());
             turno.setPaciente(paciente);
+            turno.setOdontologo(odontologo);
             turnoRepository.save(turno);
 
         } else{

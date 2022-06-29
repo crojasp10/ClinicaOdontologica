@@ -59,9 +59,7 @@ public class PacienteController {
 
     @PutMapping("/updatePaciente")
     public void updatePaciente( @RequestBody Paciente paciente){
-
          pacienteService.updatePaciente(paciente);
-
         System.out.println("Se modifica el paciente");
 
     }

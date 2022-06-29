@@ -35,6 +35,19 @@ public class TurnoController {
         return result;
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
     @GetMapping("/getTurnos")
     public List<Turno> listar () {
         System.out.println("Ingresamos a findAll");
