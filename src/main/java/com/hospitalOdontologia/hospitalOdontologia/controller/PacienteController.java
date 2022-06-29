@@ -41,8 +41,7 @@ public class PacienteController {
     @GetMapping("/getPaciente/{id}")
     public Paciente getPacienteById(@PathVariable(value = "id") int id) {
 
-        System.out.println("Se encontro el turno");
-        System.out.println(pacienteRepository.findById(id));
+        System.out.println("Se encontro el paciente: "+ pacienteRepository.findById(id).getId());
         return pacienteRepository.findById(id);
     }
 

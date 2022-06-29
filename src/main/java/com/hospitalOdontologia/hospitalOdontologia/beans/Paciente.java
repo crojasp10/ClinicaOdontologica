@@ -1,6 +1,9 @@
 package com.hospitalOdontologia.hospitalOdontologia.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -8,12 +11,14 @@ import java.util.List;
 
 
 @Data
+@AllArgsConstructor
 @ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "paciente")
 public class Paciente {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -21,50 +26,14 @@ public class Paciente {
     private String nombre;
     @Column(name = "apellido")
     private String apellido;
-
+    @Column(name = "dni")
+    private String dni;
+    @Column(name = "fechaDeAlta")
+    private String fechaDeAlta;
+    @JsonIgnore
     @OneToMany (mappedBy = "paciente",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Turno> turnos;
 
 
-    public Paciente() {
-    }
 
-    public Paciente(int id, String nombre, String apellido, List<Turno> turnos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.turnos = turnos;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public List<Turno> getTurnos() {
-        return turnos;
-    }
-
-    public void setTurno(Turno turno) {
-        turnos.add(turno);
-    }
 }
