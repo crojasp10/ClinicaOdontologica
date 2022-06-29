@@ -4,8 +4,10 @@ package com.hospitalOdontologia.hospitalOdontologia.controller;
 import com.hospitalOdontologia.hospitalOdontologia.beans.Paciente;
 import com.hospitalOdontologia.hospitalOdontologia.repository.PacienteRepository;
 import com.hospitalOdontologia.hospitalOdontologia.repository.TurnoRepository;
+import com.hospitalOdontologia.hospitalOdontologia.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,23 +22,9 @@ public class PacienteController {
     private PacienteRepository pacienteRepository;
     @Autowired
     private TurnoRepository turnoRepository;
+    @Autowired
+    private PacienteService pacienteService;
 
-
-    @PostMapping("/newPaciente")
-    @ResponseStatus(HttpStatus.CREATED)
-    public StringBuilder insertarPaciente(@RequestBody Paciente paciente) {
-
-
-        System.out.println("En metodo save");
-        pacienteRepository.save(paciente);
-        System.out.println(paciente.getId());
-        System.out.println(paciente);
-
-        StringBuilder result = new StringBuilder();
-        result.append("Los datos ingresados son: ").append("Id ").append(paciente.getId()).append(" El nombre es: ")
-                .append(paciente.getNombre());
-        return result;
-    }
 
     @GetMapping("/getPaciente/{id}")
     public Paciente getPacienteById(@PathVariable(value = "id") int id) {
@@ -52,6 +40,36 @@ public class PacienteController {
         return pacienteRepository.findAll();
 
     }
+
+    @PostMapping("/newPaciente")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void insertarPaciente(@RequestBody Paciente paciente) {
+
+        pacienteRepository.save(paciente);
+
+    }
+
+
+    @DeleteMapping("/deletePaciente/{id}")
+    public ResponseEntity deletePacienteById(@PathVariable (value = "id") int id) {
+        System.out.println("Se elimina el paciente");
+        return pacienteService.deletePacienteById(id);
+    }
+
+
+    @PutMapping("/updatePaciente")
+    public void updatePaciente( @RequestBody Paciente paciente){
+
+         pacienteService.updatePaciente(paciente);
+
+        System.out.println("Se modifica el paciente");
+
+    }
+
+
+
+
+
 
 
 
