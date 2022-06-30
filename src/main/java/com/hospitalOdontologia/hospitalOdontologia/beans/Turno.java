@@ -10,10 +10,11 @@ import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Entity
 @Table(name = "turno")
-@NoArgsConstructor
+
 public class Turno {
 
     @Id
@@ -24,12 +25,15 @@ public class Turno {
     @Column(name="fecha")
     private String fecha;
 
-    @ManyToOne( cascade = CascadeType.ALL,  fetch = FetchType.LAZY,optional = false)
+
+    @ManyToOne(  fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "paciente_id",referencedColumnName = "id")
     private Paciente paciente;
+/*
 
     @ManyToOne( cascade = CascadeType.ALL,  fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "odontologo_id",referencedColumnName = "id")
     private Odontologo odontologo;
+*/
 
 }

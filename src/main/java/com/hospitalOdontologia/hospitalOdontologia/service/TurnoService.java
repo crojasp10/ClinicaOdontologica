@@ -27,23 +27,24 @@ public class TurnoService  {
 
         System.out.println("Se muestra el turno");
         System.out.println(turno);
+        //System.out.println("id paciente turno: "+ turno.getPaciente());
         StringBuilder result = new StringBuilder();
 
-        if (pacienteRepository.findById(turno.getPaciente().getId()) != null &&
-                odontologoRepository.findById((turno.getOdontologo().getId())) != null) {
+        if (pacienteRepository.findById(turno.getPaciente().getId()) != null){// &&
+               // odontologoRepository.findById((turno.getOdontologo().getId())) != null) {
             Paciente paciente = new Paciente();
              paciente = pacienteRepository.findById(turno.getPaciente().getId());
+            System.out.println("El paciente id es : "+paciente.getId());
 
-            Odontologo odontologo = new Odontologo();
-            odontologo = odontologoRepository.findById(turno.getOdontologo().getId());
+            //Odontologo odontologo = new Odontologo();
+            //odontologo = odontologoRepository.findById(turno.getOdontologo().getId());
 
-            System.out.println("Guarda el turno 1 con id: " + turno.getPaciente().getId() + "y odontologo id:"+ turno.getOdontologo().getId() );
+            //System.out.println("Guarda el turno 1 con id: " + turno.getPaciente().getId() + "y odontologo id:"+ turno.getOdontologo().getId() );
 
-            //Turno turno1 = new Turno();
+
             turno.setFecha(turno.getFecha());
-            turno.setId(turno.getId());
+            //turno.setId(turno.getId());
             turno.setPaciente(paciente);
-            turno.setOdontologo(odontologo);
             turnoRepository.save(turno);
 
         } else{

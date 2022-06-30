@@ -30,10 +30,17 @@ public class Paciente {
     private String dni;
     @Column(name = "fechaDeAlta")
     private String fechaDeAlta;
+
     @JsonIgnore
-    @OneToMany (mappedBy = "paciente",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany (mappedBy = "paciente",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Turno> turnos;
 
+    public Paciente(int id, String nombre, String apellido, String dni, String fechaDeAlta) {
+        this.id = id;
 
+    }
 
+    public int getId() {
+        return id;
+    }
 }
