@@ -35,6 +35,17 @@ public class Paciente {
     @OneToMany (mappedBy = "paciente",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Turno> turnos;
 
+
+    @JsonIgnore
+    @OneToOne (mappedBy = "paciente",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Domicilio domicilio;
+
+
+
+
+
+
+
     public Paciente(int id, String nombre, String apellido, String dni, String fechaDeAlta) {
         this.id = id;
 
