@@ -29,15 +29,13 @@ public class Odontologo {
     private String apellido;
     @Column(name = "matricula")
     private  String matricula;
-/*
+
     @JsonIgnore
     @OneToMany (mappedBy = "odontologo",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Turno> turnos;
-*/
 
 
-
-
-
-
+    public Odontologo(int id) {
+        this.id = id;
+    }
 }
