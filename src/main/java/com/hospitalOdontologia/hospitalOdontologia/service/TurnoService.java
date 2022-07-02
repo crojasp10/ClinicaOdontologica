@@ -8,7 +8,8 @@ import com.hospitalOdontologia.hospitalOdontologia.repository.PacienteRepository
 import com.hospitalOdontologia.hospitalOdontologia.repository.TurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 
 @Service
@@ -55,7 +56,5 @@ public class TurnoService  {
         return result;
 
     }
-
-
 
 }

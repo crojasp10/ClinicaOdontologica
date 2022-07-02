@@ -37,13 +37,8 @@ public class Paciente {
 
 
     @JsonIgnore
-    @OneToOne (mappedBy = "paciente",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne (mappedBy = "paciente",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Domicilio domicilio;
-
-
-
-
-
 
 
     public Paciente(int id, String nombre, String apellido, String dni, String fechaDeAlta) {
