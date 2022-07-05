@@ -7,7 +7,10 @@ import com.hospitalOdontologia.hospitalOdontologia.repository.OdontologoReposito
 import com.hospitalOdontologia.hospitalOdontologia.repository.PacienteRepository;
 import com.hospitalOdontologia.hospitalOdontologia.repository.TurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -23,13 +26,13 @@ public class TurnoService  {
     private OdontologoRepository odontologoRepository;
 
 
-    public StringBuilder insertarturno (Turno turno) {
-        System.out.println("Guarda el turno");
+    public ResponseEntity insertarturno (Turno turno) {
+        ResponseEntity response = null;
 
         System.out.println("Se muestra el turno");
         System.out.println(turno);
         //System.out.println("id paciente turno: "+ turno.getPaciente());
-        StringBuilder result = new StringBuilder();
+
 
         if (pacienteRepository.findById(turno.getPaciente().getId()) != null &&
                 odontologoRepository.findById((turno.getOdontologo().getId())) != null) {
@@ -46,15 +49,22 @@ public class TurnoService  {
             turno.setFecha(turno.getFecha());
             turno.setPaciente(paciente);
             turno.setOdontologo(odontologo);
-            turnoRepository.save(turno);
+            response = ResponseEntity.ok(turnoRepository.save(turno));
 
         } else{
-            System.out.println("No se pudo agregar");
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        result.append("Los datos ingresados son: ").append("Id ").append(turno.getId()).append(" El nombre es: ")
-                .append(turno.getFecha());
-        return result;
+
+        return response;
 
     }
+
+
+
+
+
+
+
+
 
 }

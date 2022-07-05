@@ -19,8 +19,9 @@ public class OdontologoService {
     private TurnoRepository turnoRepository;
 
 
-    public void updateOdontologo( Odontologo odontologo) {
+    public ResponseEntity updateOdontologo( Odontologo odontologo) {
 
+        ResponseEntity response = null;
         Odontologo odontologo1 = odontologoRepository.findById(odontologo.getId());
 
         if (odontologoRepository.findById(odontologo.getId()) != null) {
@@ -30,10 +31,11 @@ public class OdontologoService {
             odontologo1.setApellido(odontologo.getApellido());
             odontologo1.setMatricula(odontologo.getMatricula());
 
-                odontologoRepository.save(odontologo1);
+            response = ResponseEntity.ok(odontologoRepository.save(odontologo1));
         } else {
-
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        return response;
     }
 
 

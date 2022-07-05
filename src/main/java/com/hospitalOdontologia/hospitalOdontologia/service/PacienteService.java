@@ -24,8 +24,9 @@ public class PacienteService {
 
 
 
-    public void updatePaciente( Paciente paciente) {
+    public ResponseEntity updatePaciente( Paciente paciente) {
 
+        ResponseEntity response = null;
         Paciente paciente1 = pacienteRepository.findById(paciente.getId());
 
         if (pacienteRepository.findById(paciente.getId()) != null) {
@@ -36,18 +37,19 @@ public class PacienteService {
             paciente1.setDni(paciente.getDni());
             paciente1.setFechaDeAlta(paciente.getFechaDeAlta());
 
-            pacienteRepository.save(paciente1);
+            response = ResponseEntity.ok(pacienteRepository.save(paciente1));
         } else {
-
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-    }
 
+
+        return response;
+    }
 
 
     public ResponseEntity deletePacienteById(int id) {
 
         ResponseEntity response = null;
-
         if(pacienteRepository.findById(id)==null){
             response = new ResponseEntity( HttpStatus.NOT_FOUND);
         }else{

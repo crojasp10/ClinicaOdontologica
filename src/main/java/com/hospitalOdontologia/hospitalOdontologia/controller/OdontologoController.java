@@ -24,25 +24,26 @@ public class OdontologoController {
 
     @PostMapping("/newOdontologo")
     @ResponseStatus(HttpStatus.CREATED)
-    public void insertarOdontologo(@RequestBody Odontologo odontologo) {
+    public ResponseEntity insertarOdontologo(@RequestBody Odontologo odontologo) {
 
-        odontologoRepository.save(odontologo);
+        return ResponseEntity.ok(odontologoRepository.save(odontologo));
 
     }
 
 
     @GetMapping("/getOdontologo/{id}")
-    public Odontologo getOdontologoById(@PathVariable(value = "id") int id) {
+    public ResponseEntity<Odontologo> getOdontologoById(@PathVariable(value = "id") int id) {
 
+        Odontologo odontologo = odontologoRepository.findById(id);
         System.out.println("Se encontro el paciente: "+ odontologoRepository.findById(id).getId());
-        return odontologoRepository.findById(id);
+        return ResponseEntity.ok(odontologo);
     }
 
 
     @GetMapping("/getOdontologos")
-    public List<Odontologo> listar () {
+    public ResponseEntity<List<Odontologo>> listar () {
         System.out.println("Ingresamos a findAll");
-        return odontologoRepository.findAll();
+        return ResponseEntity.ok(odontologoRepository.findAll());
 
     }
 
@@ -54,9 +55,10 @@ public class OdontologoController {
 
 
     @PutMapping("/updateOdontologo")
-    public void updatePaciente( @RequestBody Odontologo odontologo){
-        odontologoService.updateOdontologo(odontologo);
+    public ResponseEntity updatePaciente( @RequestBody Odontologo odontologo){
         System.out.println("Se modifica el paciente");
+        return odontologoService.updateOdontologo(odontologo);
+
 
     }
 

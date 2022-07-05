@@ -5,6 +5,7 @@ import com.hospitalOdontologia.hospitalOdontologia.repository.PacienteRepository
 import com.hospitalOdontologia.hospitalOdontologia.repository.TurnoRepository;
 import com.hospitalOdontologia.hospitalOdontologia.service.DomicilioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +24,11 @@ public class DomicilioController {
 
 
     @PostMapping("/asignarDomicilio")
-    public StringBuilder insertarturno (@RequestBody Domicilio domicilio) {
+    public ResponseEntity insertarDomicilio (@RequestBody Domicilio domicilio) {
 
-        StringBuilder result = new StringBuilder();;
         System.out.println(" los datos del domicilio son: "+ domicilio);
-        System.out.println(" el id del domicilio es: "+ domicilio.getPaciente().getId());
-        domicilioService.insertarturno(domicilio);
-        result.append("Los datos ingresados son: ").append("Id ").append(domicilio.getId());
-        return result;
+        return ResponseEntity.ok(domicilioService.insertardomicilio(domicilio));
+
 
     }
 

@@ -9,6 +9,8 @@ import com.hospitalOdontologia.hospitalOdontologia.repository.OdontologoReposito
 import com.hospitalOdontologia.hospitalOdontologia.repository.PacienteRepository;
 import com.hospitalOdontologia.hospitalOdontologia.repository.TurnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -22,9 +24,9 @@ public class DomicilioService {
     @Autowired
     private DomicilioRepository domicilioRepository;
 
-    public StringBuilder insertarturno (Domicilio domicilio) {
-        System.out.println("Guarda el domicilio");
+    public ResponseEntity insertardomicilio (Domicilio domicilio) {
 
+        ResponseEntity response = null;
         System.out.println("Se muestra el domicilio");
         System.out.println(domicilio);
         StringBuilder result = new StringBuilder();
@@ -43,13 +45,13 @@ public class DomicilioService {
             domicilio.setDireccion(domicilio.getDireccion());
             domicilio.setPaciente(paciente);
 
-            domicilioRepository.save(domicilio);
+            response = ResponseEntity.ok(domicilioRepository.save(domicilio));
 
         } else{
-            System.out.println("No se pudo agregar");
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        result.append("Los datos ingresados son: ").append("Id ").append(domicilio.getId());
-        return result;
+
+        return response;
 
     }
 

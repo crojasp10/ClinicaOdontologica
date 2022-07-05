@@ -27,29 +27,28 @@ public class PacienteController {
     private PacienteService pacienteService;
 
 
-    @GetMapping("/getPacientes/{id}")
-    public Paciente getPacienteById(@PathVariable(value = "id") int id) {
+    @GetMapping("/getPaciente/{id}")
+    public ResponseEntity<Paciente> getPacienteById(@PathVariable(value = "id") int id) {
 
-        System.out.println("Se encontro el paciente: "+ pacienteRepository.findById(id).getId());
-        return pacienteRepository.findById(id);
+        Paciente paciente = pacienteRepository.findById(id);
+        return ResponseEntity.ok(paciente);
     }
 
 
     @GetMapping("/getPacientes")
-    public List<Paciente> listar () {
+    public ResponseEntity<List<Paciente>> listar () {
         System.out.println("Ingresamos a findAll");
-        return pacienteRepository.findAll();
+        return ResponseEntity.ok(pacienteRepository.findAll());
 
     }
 
     @PostMapping("/newPaciente")
     @ResponseStatus(HttpStatus.CREATED)
-    public void insertarPaciente(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> insertarPaciente(@RequestBody Paciente paciente) {
 
-        pacienteRepository.save(paciente);
+        return ResponseEntity.ok(pacienteRepository.save(paciente));
 
     }
-
 
     @DeleteMapping("/deletePaciente/{id}")
     public ResponseEntity deletePacienteById(@PathVariable (value = "id") int id) {
@@ -57,15 +56,11 @@ public class PacienteController {
         return pacienteService.deletePacienteById(id);
     }
 
-
     @PutMapping("/updatePaciente")
-    public void updatePaciente( @RequestBody Paciente paciente){
-         pacienteService.updatePaciente(paciente);
+    public ResponseEntity updatePaciente( @RequestBody Paciente paciente){
         System.out.println("Se modifica el paciente");
-
+        return pacienteService.updatePaciente(paciente);
     }
-
-
 
     @GetMapping("/getPacientesNombre/{name}/{apellido}")
     public List <Paciente> listarNombres (@PathVariable(value = "name")String name, @PathVariable(value = "apellido") String apellido) {

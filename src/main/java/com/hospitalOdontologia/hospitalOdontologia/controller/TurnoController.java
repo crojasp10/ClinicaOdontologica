@@ -28,31 +28,17 @@ public class TurnoController {
     private TurnoService turnoService;
 
     @PostMapping("/asignarTurno")
-    public StringBuilder insertarturno (@RequestBody Turno turno) {
+    public ResponseEntity insertarturno (@RequestBody Turno turno) {
 
-        StringBuilder result = new StringBuilder();
-        Turno turno1 = turno;
-        System.out.println(" los datos del turno son: "+ turno1);
-        System.out.println(" el id del turno es: "+ turno1.getPaciente().getId());
-        turnoService.insertarturno(turno);
-        result.append("Los datos ingresados son: ").append("Id ").append(turno.getId()).append(" El nombre es: ")
-                .append(turno.getFecha());
-        return result;
+        return ResponseEntity.ok(turnoService.insertarturno(turno));
 
-    }
-
-    @GetMapping("/getTurnosByPaciente")
-    public List<Turno> listarTurnoByPaciente (@PathVariable(value = "id")Integer id){
-        System.out.println("Ingresa al metodo turno By id: " + id);
-        return turnoRepository.findAll();
-        //return turnoRepository.findTurnoByIdPaciente(id);
     }
 
 
     @GetMapping("/getTurnos")
-    public List<Turno> listar () {
+    public ResponseEntity<List<Turno>> listar () {
         System.out.println("Ingresamos a findAll");
-        return turnoRepository.findAll();
+        return ResponseEntity.ok(turnoRepository.findAll());
 
     }
 
