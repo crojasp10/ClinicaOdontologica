@@ -23,4 +23,7 @@ public interface TurnoRepository extends JpaRepository <Turno, Integer> {
     List<Turno> findAll();
 
 
+
+
+
 }
