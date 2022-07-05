@@ -14,6 +14,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin ( origins = "*" , methods= { RequestMethod. GET ,RequestMethod. POST })
 @RequestMapping("/crud")
 public class PacienteController {
 
@@ -26,7 +27,7 @@ public class PacienteController {
     private PacienteService pacienteService;
 
 
-    @GetMapping("/getPaciente/{id}")
+    @GetMapping("/getPacientes/{id}")
     public Paciente getPacienteById(@PathVariable(value = "id") int id) {
 
         System.out.println("Se encontro el paciente: "+ pacienteRepository.findById(id).getId());
@@ -66,7 +67,12 @@ public class PacienteController {
 
 
 
+    @GetMapping("/getPacientesNombre/{name}/{apellido}")
+    public List <Paciente> listarNombres (@PathVariable(value = "name")String name, @PathVariable(value = "apellido") String apellido) {
+        System.out.println("Ingresa a clientes nombre");
+        return pacienteRepository.findAllNames(name, apellido);
 
+    }
 
 
 
