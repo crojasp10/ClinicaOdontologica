@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/crud")
+@RequestMapping("/odontologo")
 public class OdontologoController {
 
     @Autowired

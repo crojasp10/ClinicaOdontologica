@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/crud")
+@RequestMapping("/turno")
 public class TurnoController {
 
     @Autowired
